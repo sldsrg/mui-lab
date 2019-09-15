@@ -21,6 +21,24 @@ const useStyles = makeStyles(theme => ({
     opacity: 0,
     transform: 'scale(0.1)',
     transition: 'all 400ms'
+  },
+
+  root: {
+    height: 180
+  },
+
+  wrapper: {
+    width: 300
+  },
+
+  paper: {
+    zIndex: 1,
+    position: 'relative',
+    margin: theme.spacing(1)
+  },
+
+  button: {
+    margin: theme.spacing(2)
   }
 }))
 
