@@ -1,72 +1,100 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
-import { CssBaseline, Button, Box, Collapse, Container, Slide, Paper } from '@material-ui/core'
 
-import MyList from './components/MyList'
+import {
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Typography,
+  Drawer,
+  ListItemText,
+  ListItemIcon,
+  ListItem,
+  List
+} from '@material-ui/core'
+import * as Icons from '@material-ui/icons'
+
 import useStyles from './styles'
+import CSSTransitionPage from './components/CSSTransitionPage'
+import CollapsePage from './components/CollapsePage'
+import SlidePage from './components/SlidePage'
+import HomePage from './components/HomePage'
+
+const routes = [
+  { path: '/', name: 'Home', Component: HomePage },
+  { path: '/CSSTransition', name: 'CSSTransition', Component: CSSTransitionPage },
+  { path: '/Collapse', name: 'Collapse', Component: CollapsePage },
+  { path: '/Slide', name: 'Slide', Component: SlidePage }
+]
 
 function App() {
-  const [openList, setOpenList] = useState(false)
-  const [collapse, setCollapse] = useState(false)
-  const [slide, setSlide] = useState(false)
   const classes = useStyles()
 
-  const toggleList = () => setOpenList(prev => !prev)
-  const toggleCollapse = () => setCollapse(prev => !prev)
-  const toggleSlide = () => setSlide(prev => !prev)
+  const NavLinkAdapter = React.forwardRef((props, ref) => (
+    <NavLink activeClassName={classes.activeLink} innerRef={ref} {...props} />
+  ))
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
-      <Box m={2}>
-        <Button className={classes.button} variant='contained' color='primary' onClick={toggleList}>
-          List with CSSTransition
-        </Button>
-        <Container>
-          <CSSTransition
-            in={openList}
-            timeout={400}
-            classNames={{
-              enter: classes.listTransitionEnter,
-              enterActive: classes.listTransitionEnterActive,
-              exit: classes.listTransitionExit,
-              exitActive: classes.listTransitionExitActive
+      <Router>
+        <div className={classes.root}>
+          <AppBar position='fixed' className={classes.appBar}>
+            <Toolbar>
+              <Typography variant='h6' noWrap>
+                MUI Labs
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            className={classes.drawer}
+            variant='permanent'
+            classes={{
+              paper: classes.drawerPaper
             }}
-            unmountOnExit
           >
-            <MyList />
-          </CSSTransition>
-        </Container>
-        <Button
-          className={classes.button}
-          variant='contained'
-          color='primary'
-          onClick={toggleCollapse}
-        >
-          List with Transition
-        </Button>
-        <Container>
-          <Collapse in={collapse}>
-            <MyList />
-          </Collapse>
-        </Container>
-        <Button
-          className={classes.button}
-          variant='contained'
-          color='primary'
-          onClick={toggleSlide}
-        >
-          Slide List
-        </Button>
-        <Container>
-          <Slide in={slide} direction='up' mountOnEnter unmountOnExit>
-            <Paper elevation={4} className={classes.paper}>
-              <MyList />
-            </Paper>
-          </Slide>
-        </Container>
-      </Box>
-    </React.Fragment>
+            <div className={classes.toolbar} />
+            <List component='nav'>
+              {routes.map(({ name, path }) => (
+                <ListItem key={path} button component={NavLinkAdapter} to={path} exact>
+                  <ListItemIcon>
+                    <Icons.MoveToInbox />
+                  </ListItemIcon>
+                  <ListItemText primary={name} />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <div className={classes.container}>
+              {routes.map(({ path, Component }) => (
+                <Route key={path} exact path={path}>
+                  {({ match }) => (
+                    <CSSTransition
+                      in={match != null}
+                      timeout={300}
+                      classNames={{
+                        enter: classes.pageEnter,
+                        enterActive: classes.pageEnterActive,
+                        exit: classes.pageExit,
+                        exitActive: classes.pageExitActive
+                      }}
+                      unmountOnExit
+                    >
+                      <div className={classes.page}>
+                        <Component />
+                      </div>
+                    </CSSTransition>
+                  )}
+                </Route>
+              ))}
+            </div>
+          </main>
+        </div>
+      </Router>
+    </>
   )
 }
 
