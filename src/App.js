@@ -20,12 +20,14 @@ import CSSTransitionPage from './components/CSSTransitionPage'
 import CollapsePage from './components/CollapsePage'
 import SlidePage from './components/SlidePage'
 import HomePage from './components/HomePage'
+import DoubleSlidePage from './components/DoubleSlidePage'
 
 const routes = [
   { path: '/', name: 'Home', Component: HomePage },
   { path: '/CSSTransition', name: 'CSSTransition', Component: CSSTransitionPage },
   { path: '/Collapse', name: 'Collapse', Component: CollapsePage },
-  { path: '/Slide', name: 'Slide', Component: SlidePage }
+  { path: '/Slide', name: 'Slide', Component: SlidePage },
+  { path: '/DoubleSlide', name: 'DoubleSlide', Component: DoubleSlidePage }
 ]
 
 function App() {
