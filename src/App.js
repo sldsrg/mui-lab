@@ -19,17 +19,19 @@ import useStyles from './styles'
 import CSSTransitionPage from './components/CSSTransitionPage'
 import CollapsePage from './components/CollapsePage'
 import SlidePage from './components/SlidePage'
+import InputFocusPage from './components/InputFocusPage'
 import HomePage from './components/HomePage'
 import DoubleSlidePage from './components/DoubleSlidePage'
 import TransitionGroupPage from './components/TransitionGroupPage'
 
 const routes = [
   { path: '/', name: 'Home', Component: HomePage },
+  { path: '/InputFocus', name: 'Input Focus', Component: InputFocusPage },
   { path: '/TransitionGroup', name: 'TransitionGroup', Component: TransitionGroupPage },
   { path: '/CSSTransition', name: 'CSSTransition', Component: CSSTransitionPage },
   { path: '/Collapse', name: 'Collapse', Component: CollapsePage },
   { path: '/Slide', name: 'Slide', Component: SlidePage },
-  { path: '/DoubleSlide', name: 'DoubleSlide', Component: DoubleSlidePage }
+  { path: '/DoubleSlide', name: 'Double Slide', Component: DoubleSlidePage }
 ]
 
 function App() {

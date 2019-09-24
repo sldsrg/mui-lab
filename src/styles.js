@@ -100,6 +100,11 @@ const useStyles = makeStyles(theme => ({
 
   activeLink: {
     backgroundColor: theme.palette.background.default
+  },
+
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   }
 }))
 
