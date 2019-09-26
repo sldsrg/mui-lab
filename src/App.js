@@ -37,9 +37,7 @@ const routes = [
 function App() {
   const classes = useStyles()
 
-  const NavLinkAdapter = React.forwardRef((props, ref) => (
-    <NavLink activeClassName={classes.activeLink} innerRef={ref} {...props} />
-  ))
+  const NavLinkAdapter = React.forwardRef((props, ref) => <NavLink innerRef={ref} {...props} />)
 
   return (
     <>
@@ -63,7 +61,14 @@ function App() {
             <div className={classes.toolbar} />
             <List component='nav'>
               {routes.map(({ name, path }) => (
-                <ListItem key={path} button component={NavLinkAdapter} to={path} exact>
+                <ListItem
+                  key={path}
+                  className={classes.link}
+                  button
+                  component={NavLinkAdapter}
+                  to={path}
+                  exact
+                >
                   <ListItemIcon>
                     <Icons.MoveToInbox />
                   </ListItemIcon>

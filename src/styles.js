@@ -98,8 +98,17 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2)
   },
 
-  activeLink: {
-    backgroundColor: theme.palette.background.default
+  link: {
+    '&.active': {
+      backgroundColor: theme.palette.background.default,
+      '& svg': {
+        color: theme.palette.text.primary
+      },
+      '& span.MuiTypography-root': {
+        color: theme.palette.text.primary,
+        fontWeight: 800
+      }
+    }
   },
 
   textField: {
